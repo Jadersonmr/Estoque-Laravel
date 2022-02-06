@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return 'index';
+        return view('products.index');
     }
 
     /**
@@ -58,7 +58,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $this->product->find($id);
+        return $this->product->find($id);
     }
 
     /**
@@ -69,7 +69,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $this->product->find($id);
+        $product = $this->product->find($id);
+
+        return view('products.index', compact('product'));
+
+        //$this->middleware('auth')->except('show');
     }
 
     /**
