@@ -15,6 +15,7 @@
                     @endif
 
                     You are logged in!
+                    <a class="btn btn-primary" href="{{route('products.index')}}">Acessar produtos</a>
                 </div>
             </div>
         </div>

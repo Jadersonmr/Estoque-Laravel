@@ -3,13 +3,15 @@
 @section('title', 'Produtos - ')
 
 @section('content')
-    <div class="content">
+    <div class="container">
         @component('products.components.card')
             @slot('title')
                 Produtos
             @endslot
+            <div>
+                <a class="btn btn-primary mb-3" href="{{route('products.create')}}">Cadastrar produto</a>
                 @include('products.table')
-                <a class="btn btn-primary" href="{{route('products.create')}}">Cadastrar produto</a>
+            </div>
         @endcomponent
     </div>
 @endsection

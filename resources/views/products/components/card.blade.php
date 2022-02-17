@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-header">
-        {{$title}}
+        {{$title ?? null}}
     </div>
     <div class="card-body">
-        {{$slot}}
+        {{$slot ?? null}}
     </div>
 </div>
