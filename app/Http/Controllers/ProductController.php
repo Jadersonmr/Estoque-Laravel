@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -46,9 +47,13 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $this->product->create($request->all());
+
+        if ($request->file('image')->isValid()) {
+            $request->file('image')->store('products');
+        }
 
         return redirect()->route('products.index');
     }
