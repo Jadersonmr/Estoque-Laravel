@@ -3,10 +3,16 @@
 @section('title', 'Criar produtos - ')
 
 @section('content')
-    <h1>Editar produto</h1>
+    <div class="container">
+        @component('products.components.card')
+            @slot('title')
+                Editar produto
+            @endslot
 
-    <form action="{{route('products.update', $product->id)}}" method="put" enctype="multipart/form-data">
-        @csrf
-        @include('products.fields')
-    </form>
+            <form action="{{route('products.update', $product->id)}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @include('products.fields')
+            </form>
+        @endcomponent
+    </div>
 @endsection
