@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'produtos', 'as' => 'products.
     Route::delete('/{id}/excluir', 'ProductController@destroy')->name('destroy');
 });
 
+Route::resource('/customers', 'CustomerController')->middleware('auth');
+
 //Route::get('/categorias/{flag}', function ($flag) {
 //   return "Produtos da categoria: {$flag}";
 //});
