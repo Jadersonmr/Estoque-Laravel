@@ -13,6 +13,9 @@
                 @include('products.table')
             </div>
         @endcomponent
+        <div class="mt-2">
+            {!! $products->links() !!}
+        </div>
     </div>
 @endsection
 

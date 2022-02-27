@@ -23,9 +23,11 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
+//        $id = $this->segment(2);
+
         return [
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
+            'name' => "required|min:3|max:255|unique:products,name,{$this->id},id",
+            'description' => 'required|min:3|max:10000',
             'image' => 'image'
         ];
     }
@@ -35,6 +37,8 @@ class UpdateProductRequest extends FormRequest
         return [
             'name.required' => 'O campo nome é obrigatório',
             'name.min' => 'O campo nome precisa ter pelo menos 3 caracteres',
+            'name.unique' => 'Este nome ja está sendo utilizado',
+            'description.required' => 'O campo descrição é obrigatório',
             'description.min' => 'O campo descrição precisa ter pelo menos 3 caracteres'
         ];
     }

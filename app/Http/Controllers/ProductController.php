@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $products = $this->product->paginate(20);
 
-        return view('products.index', compact('products'));
+        return view('products.index', ['products' => $products]);
     }
 
     /**
@@ -66,7 +66,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return $this->product->find($id);
+        $productData = $this->product->find($id);
+
+        return view('products.show', ['product' => $productData]);
     }
 
     /**
@@ -77,9 +79,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->product->find($id);
+        $productData = $this->product->find($id);
 
-        return view('products.edit', compact('product'));
+        return view('products.edit', ['product' => $productData]);
     }
 
     /**

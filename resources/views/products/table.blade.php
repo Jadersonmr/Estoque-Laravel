@@ -3,6 +3,7 @@
     <tr>
         <th>Nome</th>
         <th>Descrição</th>
+        <th>Detalhes</th>
         <th>Editar</th>
         <th>Excluir</th>
     </tr>
@@ -12,6 +13,9 @@
         <tr>
             <td>{{$product->name ?? null}}</td>
             <td>{{$product->description ?? null}}</td>
+            <td>
+                <a class="btn btn-primary" href="{{route('products.show', $product->id)}}">Detalhes</a>
+            </td>
             <td>
                 <a class="btn btn-primary" href="{{route('products.edit', $product->id)}}">Editar produto</a>
             </td>
