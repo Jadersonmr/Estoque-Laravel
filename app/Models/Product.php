@@ -14,4 +14,13 @@ class Product extends Model
     protected $fillable = [
         'name', 'description'
     ];
+
+    public function search($filter = null)
+    {
+        return $this->where(function ($query) use($filter) {
+            if ($filter) {
+                $query->where('name', 'LIKE', "%{$filter}%");
+            }
+        })->paginate(20);
+    }
 }

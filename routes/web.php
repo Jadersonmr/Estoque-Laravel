@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'produtos', 'as' => 'products.
     Route::get('/{id}/editar', 'ProductController@edit')->name('edit');
     Route::post('/{id}/editar', 'ProductController@update')->name('update');
     Route::delete('/{id}/excluir', 'ProductController@destroy')->name('destroy');
+    Route::any('/search', 'ProductController@search')->name('search');
 });
 
 Route::resource('/customers', 'CustomerController')->middleware('auth');

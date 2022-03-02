@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -110,5 +111,15 @@ class ProductController extends Controller
         $this->product->find($id)->delete();
 
         return redirect()->route('products.index');
+    }
+
+    /**
+     * Search products
+     */
+    public function search(Request $request)
+    {
+        $products = $this->product->search($request->filter);
+
+        return view('products.index', ['products' => $products, 'filters' => $request->except('_token')]);
     }
 }
