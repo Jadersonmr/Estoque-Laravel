@@ -8,16 +8,13 @@
             @slot('title')
                 Produtos
             @endslot
-            <div>
                 <form action="{{route('products.search')}}" method="post" class="form form-inline">
                     @csrf
-                    <input type="text" name="filter" placeholder="Buscar" class="form-control" value="{{$filters['filter'] ?? ''}}">
-                    <button type="submit" class="btn btn-info">Pesquisar</button>
+                    <input type="text" name="filter" placeholder="Buscar" class="form-control mr-2" value="{{$filters['filter'] ?? ''}}">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
                 </form>
-                <br>
-                <a class="btn btn-primary mb-3" href="{{route('products.create')}}">Cadastrar produto</a>
-                @include('products.table')
-            </div>
+                <a class="btn btn-primary mb-3 mt-2 float-right" href="{{route('products.create')}}">Cadastrar produto</a>
+            @include('products.table')
         @endcomponent
         <div class="mt-2">
             {!! $products->appends($filters ?? null)->links() !!}

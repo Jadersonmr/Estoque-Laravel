@@ -1,3 +1,9 @@
+<div class="mb-2">
+    <button class="btn btn-primary" type="submit">Salvar</button>
+
+    <a href="{{route('products.index')}}" class="btn btn-primary">Voltar</a>
+</div>
+
 <div class="mb-3">
     <label for="name" class="form-label">Nome</label>
     <input type="text" class="form-control" name="name" value="{{$product->name ?? old('name')}}" placeholder="Nome:" id="name">
@@ -22,4 +28,3 @@
     <label for="image">Imagem</label>
     <input type="file" class="form-control" name="image">
 </div>
-<button class="btn btn-primary" type="submit">Enviar</button>
