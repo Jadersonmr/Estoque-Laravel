@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -50,11 +51,15 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $this->product->create($request->all());
+        $data = $request->all();
 
-        if ($request->file('image')->isValid()) {
-            $request->file('image')->store('products');
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            $imagePath = $request->image->store('products');
+
+            $data['image'] = $imagePath;
         }
+
+        $this->product->create($data);
 
         return redirect()->route('products.index');
     }
@@ -95,7 +100,23 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $id)
     {
         $productData = $this->product->find($id);
-        $productData->update($request->all());
+
+        if (!$productData){
+            return redirect()->back();
+        }
+
+        $data = $request->all();
+
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            if ($productData->image && Storage::exists($productData->image)){
+                Storage::delete($productData->image);
+            }
+
+            $imagePath = $request->image->store('products');
+            $data['image'] = $imagePath;
+        }
+
+        $productData->update($data);
 
         return redirect()->route('products.index');
     }
@@ -108,7 +129,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->product->find($id)->delete();
+        $productData = $this->product->find($id);
+
+        if (!$productData){
+            return redirect()->back();
+        }
+
+        if ($productData->image && Storage::exists($productData->image)){
+            Storage::delete($productData->image);
+        }
+
+        $productData->delete();
 
         return redirect()->route('products.index');
     }

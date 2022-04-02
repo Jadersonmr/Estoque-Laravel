@@ -15,6 +15,16 @@
 @endif
 
 <div class="mb-3">
+    <label for="price" class="form-label">Preço</label>
+    <input type="text" class="form-control" name="price" value="{{$product->price ?? old('price')}}" placeholder="Preço:" id="price">
+</div>
+@if($errors->has('price'))
+    <div class="alert alert-danger" role="alert">
+        {{$errors->first('price')}}
+    </div>
+@endif
+
+<div class="mb-3">
     <label for="description" class="form-label">Descrição</label>
     <input type="text" class="form-control" name="description" value="{{$product->description ?? old('description')}}" placeholder="Descrição:" id="description">
 </div>

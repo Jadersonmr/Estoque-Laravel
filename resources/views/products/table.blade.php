@@ -1,6 +1,7 @@
 <table class="table table-bordered">
     <thead>
     <tr>
+        <th class="mw-100">Imagem</th>
         <th>Nome</th>
         <th>Descrição</th>
         <th>Detalhes</th>
@@ -11,6 +12,11 @@
     <tbody>
     @foreach($products as $product)
         <tr>
+            <td>
+                @if($product->image)
+                    <img src="{{url("storage/{$product->image}")}}" alt="{{$product->name}}" class="mw-100">
+                @endif
+            </td>
             <td>{{$product->name ?? null}}</td>
             <td>{{$product->description ?? null}}</td>
             <td>
