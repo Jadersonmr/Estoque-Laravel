@@ -9,10 +9,9 @@
                 Cadastrar novo produto
             @endslot
 
-        <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
-            @csrf
+        {!! Form::open(['url' => route('products.store'), 'method' => 'post', 'files' => true]) !!}
             @include('products.fields')
-        </form>
+        {!! Form::close() !!}
         @endcomponent
     </div>
 @endsection

@@ -8,11 +8,10 @@
             @slot('title')
                 Produtos
             @endslot
-                <form action="{{route('products.search')}}" method="post" class="form form-inline">
-                    @csrf
-                    <input type="text" name="filter" placeholder="Buscar" class="form-control mr-2" value="{{$filters['filter'] ?? ''}}">
-                    <button type="submit" class="btn btn-primary">Pesquisar</button>
-                </form>
+                {!! Form::open(['url' => route('products.search'), 'method' => 'post', "class" => "form form-inline"]) !!}
+                    {!! Form::text('filter', $filters['filter'] ?? null, ["class" => "form-control mr-2", "placeholder" => "Buscar:"]) !!}
+                    {!! Form::submit("Pesquisar", ["class" => "btn btn-primary"]); !!}
+                {!! Form::close() !!}
                 <a class="btn btn-primary mb-3 mt-2 float-right" href="{{route('products.create')}}">Cadastrar produto</a>
             @include('products.table')
         @endcomponent

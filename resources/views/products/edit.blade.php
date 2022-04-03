@@ -9,10 +9,9 @@
                 Editar produto
             @endslot
 
-            <form action="{{route('products.update', $product->id)}}" method="post" enctype="multipart/form-data">
-                @csrf
+            {!! Form::open(['url' => route('products.update', $product->id), 'method' => 'post', 'files' => true]) !!}
                 @include('products.fields')
-            </form>
+            {!! Form::close() !!}
         @endcomponent
     </div>
 @endsection
