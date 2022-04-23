@@ -20,9 +20,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        console.log('teste');
-    </script>
-@endpush
