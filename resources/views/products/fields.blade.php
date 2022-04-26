@@ -38,5 +38,3 @@
     <label for="image">Imagem</label>
     {!! Form::file('image', ["class" => "form-control"]); !!}
 </div>
-
-<div id="map"></div>

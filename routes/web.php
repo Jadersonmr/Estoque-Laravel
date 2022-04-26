@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'produtos', 'as' => 'products.
     Route::any('/search', 'ProductController@search')->name('search');
 });
 
+Route::get('configuracoes', 'ConfigurationController@index')->name('configurations.index');
+
 Route::resource('/customers', 'CustomerController')->middleware('auth');
 
 //Route::get('/categorias/{flag}', function ($flag) {
