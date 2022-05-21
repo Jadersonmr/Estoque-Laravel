@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\ProductRepository;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
@@ -14,11 +15,11 @@ class ProductController extends Controller
      * @var Product
      */
     private $product;
+    const ROUTE = 'products.index';
 
-    public function __construct(Product $product)
+    public function __construct(ProductRepository $productRepository)
     {
-        return $this->product = $product;
-        //$this->middleware('auth')->except('show');
+        return $this->productRepository = $productRepository;
     }
 
     /**
@@ -28,9 +29,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(20);
+        $products = $this->productRepository->paginate(20);
 
-        return view('products.index', ['products' => $products]);
+        return view(self::ROUTE, ['products' => $products]);
     }
 
     /**
@@ -59,9 +60,9 @@ class ProductController extends Controller
             $data['image'] = $imagePath;
         }
 
-        $this->product->create($data);
+        $this->productRepository->create($data);
 
-        return redirect()->route('products.index');
+        return redirect()->route(self::ROUTE);
     }
 
     /**
@@ -72,7 +73,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $productData = $this->product->find($id);
+        $productData = $this->productRepository->find($id);
 
         return view('products.show', ['product' => $productData]);
     }
@@ -85,7 +86,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $productData = $this->product->find($id);
+        $productData = $this->productRepository->find($id);
 
         return view('products.edit', ['product' => $productData]);
     }
@@ -99,7 +100,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-        $productData = $this->product->find($id);
+        $productData = $this->productRepository->find($id);
 
         if (!$productData){
             return redirect()->back();
@@ -118,7 +119,7 @@ class ProductController extends Controller
 
         $productData->update($data);
 
-        return redirect()->route('products.index');
+        return redirect()->route(self::ROUTE);
     }
 
     /**
@@ -129,7 +130,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $productData = $this->product->find($id);
+        $productData = $this->productRepository->find($id);
 
         if (!$productData){
             return redirect()->back();
@@ -141,7 +142,7 @@ class ProductController extends Controller
 
         $productData->delete();
 
-        return redirect()->route('products.index');
+        return redirect()->route(self::ROUTE);
     }
 
     /**
@@ -149,8 +150,8 @@ class ProductController extends Controller
      */
     public function search(Request $request)
     {
-        $products = $this->product->search($request->filter);
+        $products = $this->productRepository->search($request->filter);
 
-        return view('products.index', ['products' => $products, 'filters' => $request->except('_token')]);
+        return view(self::ROUTE, ['products' => $products, 'filters' => $request->except('_token')]);
     }
 }

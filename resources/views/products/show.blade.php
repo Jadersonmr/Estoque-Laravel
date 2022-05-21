@@ -8,8 +8,13 @@
             @slot('title')
                 Detalhes do produto
             @endslot
-                <h4>{{$product->name}}</h4>
-                <p>{{$product->description}}</p>
+                <h4>Nome: {{$product->name}}</h4>
+                <p>Preço: {{$product->price}}</p>
+                <p>Descrição: {{$product->description}}</p>
+
+                <div class="mb-2">
+                    <a href="{{route('products.index')}}" class="btn btn-primary">Voltar</a>
+                </div>
         @endcomponent
     </div>
 @endsection

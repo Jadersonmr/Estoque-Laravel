@@ -3,6 +3,7 @@
     <tr>
         <th class="mw-100">Imagem</th>
         <th>Nome</th>
+        <th>Preço</th>
         <th>Descrição</th>
         <th>Detalhes</th>
         <th>Editar</th>
@@ -18,6 +19,7 @@
                 @endif
             </td>
             <td>{{$product->name ?? null}}</td>
+            <td>{{$product->price ?? null}}</td>
             <td>{{$product->description ?? null}}</td>
             <td>
                 <a class="btn btn-primary" href="{{route('products.show', $product->id)}}">Detalhes</a>
