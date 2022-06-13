@@ -23,6 +23,7 @@
     <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
     <script src="{{asset('js/leaflet.rotatedMarker.js')}}"></script>
     <script src="{{asset('js/leaflet-polylinedecorator/dist/leaflet.polylineDecorator.js')}}"></script>
+    <script src="{{asset('js/leaflet-canvas-markers/leaflet-canvas-markers.js')}}"></script>
     <script>
         function success(pos){
             console.log(pos.coords.latitude, pos.coords.longitude);
@@ -42,7 +43,7 @@
             });
 
         var map = L.map('map', {
-            layers: [OpenStreetMap_Mapnik]
+            layers: [OpenStreetMap_Mapnik], preferCanvas: true
         }).setView([-28.48602022180912, -49.00743484497071], 15);
 
         var baseMaps = {
@@ -59,46 +60,58 @@
 
         var latlngs = [
             [-28.485735960500328, -49.00723502039911],
-            [-28.486998204527396, -49.01257663965225],
-            [-28.483834443732164, -49.01355832815171],
-            [-28.483171606743493, -49.011045098304756],
+            [-28.487231077269108, -49.01349127292634],
+            [-28.484156909438983, -49.01446759700776],
+            [-28.483186267737782, -49.01103839278222],
             [-28.48292642157263, -49.0094143152237],
             [-28.48230402588984, -49.00775134563446],
-            [-28.480446247264034, -49.00922119617463],
-            [-28.478635588933496, -49.01060521602631]
+            [-28.481563600111784, -49.00481164455414],
+            [-28.479998153476206, -49.00570213794709],
+            [-28.478819337983662, -49.00610983371735],
+            [-28.47671629847216, -49.00816977024079],
+            [-28.474632078991128, -49.010304808616645]
         ];
 
         var directionIcon = L.icon({
-            iconUrl: "{{asset('images/a_up_arrow_icon.svg')}}",
+            iconUrl: "{{asset('images/a_down_arrow_icon.svg')}}",
             iconSize:     [38, 95], // size of the icon
             iconAnchor:   [22, 54], // point of the icon which will correspond to marker's location
         });
 
         var startIcon = L.icon({
             iconUrl: "{{asset('images/maker_map_flag_location_icon.svg')}}",
-            iconSize:     [38, 95], // size of the icon
-            iconAnchor:   [22, 60], // point of the icon which will correspond to marker's location
+            iconSize:     [38, 95],
+            iconAnchor:   [22, 60],
         });
 
         var endIcon = L.icon({
             iconUrl: "{{asset('images/flag_finish_goal_icon.svg')}}",
-            iconSize:     [38, 95], // size of the icon
-            iconAnchor:   [15, 60], // point of the icon which will correspond to marker's location
+            iconSize:     [38, 95],
+            iconAnchor:   [15, 60],
         });
 
         for(let index = 0; index < latlngs.length; index++) {
-            let angle;
+            // let angle;
 
-            if(typeof latlngs[index+1] !== "undefined") {
-                angle = getAngle(latlngs[index], latlngs[index + 1], -2);
-            }
+            // if(typeof latlngs[index+1] !== "undefined") {
+            //     angle = getAngle(latlngs[index], latlngs[index + 1], -1);
+            // }
 
             if(index === 0){
                 L.marker(latlngs[index], {icon: startIcon}).addTo(map);
             }else if(index+1 === latlngs.length){
                 L.marker(latlngs[index], {icon: endIcon}).addTo(map);
             }else {
-                L.marker(latlngs[index], {icon: directionIcon, rotationAngle: angle}).addTo(map);
+                L.canvasMarker(latlngs[index], {
+                    radius: 20,
+                    prevLatlng: L.latLng(latlngs[index-1]),    //previous point
+                    img: {
+                        url: "{{asset('images/a_up_arrow_icon.svg')}}",    //image link
+                        size: [40, 40],     //image size ( default [40, 40] )
+                        rotate: 10,         //image base rotate ( default 0 )
+                        offset: { x: 0, y: 0 }, //image offset ( default { x: 0, y: 0 } )
+                    },
+                }).addTo(map)
             }
         }
 
@@ -110,17 +123,17 @@
 
         map.fitBounds(polyline.getBounds());
 
-        function getAngle(latLng1, latlng2, coef) {
-            var dy = latlng2[0] - latLng1[0];
-            var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latlng2[1] - latLng1[1]);
-            var ang = ((Math.atan2(dy, dx) / Math.PI) * 180 * coef);
-            return (ang).toFixed(2);
-        }
+        // function getAngle(latLng1, latlng2, coef) {
+        //     var dy = latlng2[0] - latLng1[0];
+        //     var dx = Math.cos(Math.PI / 180 * latLng1[0]) * (latlng2[1] - latLng1[1]);
+        //     var ang = ((Math.atan2(dy, dx) / Math.PI) * 180 * coef);
+        //     return (ang).toFixed(2);
+        // }
 
-        var decorator = L.polylineDecorator(polyline, {
-            patterns: [
-                {offset: 0, repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 30})}
-            ]
-        }).addTo(map);
+        // var decorator = L.polylineDecorator(polyline, {
+        //     patterns: [
+        //         {offset: 0, repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 30})}
+        //     ]
+        // }).addTo(map);
     </script>
 @endpush
