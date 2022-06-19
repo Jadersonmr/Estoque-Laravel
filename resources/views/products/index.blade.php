@@ -12,7 +12,9 @@
                     {!! Form::text('filter', $filters['filter'] ?? null, ["class" => "form-control mr-2", "placeholder" => "Buscar:"]) !!}
                     {!! Form::submit("Pesquisar", ["class" => "btn btn-primary"]); !!}
                 {!! Form::close() !!}
-                <a class="btn btn-primary mb-3 mt-2 float-right" href="{{route('products.create')}}">Cadastrar produto</a>
+                <a class="btn btn-primary mb-3 mt-2 float-right" href="{{route('stock.output')}}">Saída</a>
+                <a class="btn btn-primary mb-3 mt-2 mr-1 float-right" href="{{route('stock.entry')}}">Entrada</a>
+                <a class="btn btn-primary mb-3 mt-2 mr-1 float-right" href="{{route('products.create')}}">Cadastrar produto</a>
             @include('products.table')
         @endcomponent
         <div class="mt-2">

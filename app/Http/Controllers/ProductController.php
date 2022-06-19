@@ -14,8 +14,12 @@ class ProductController extends Controller
     /**
      * @var Product
      */
-    private $product;
+
     const ROUTE = 'products.index';
+    /**
+     * @var ProductRepository
+     */
+    private $productRepository;
 
     public function __construct(ProductRepository $productRepository)
     {

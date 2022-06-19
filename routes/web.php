@@ -22,6 +22,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'produtos', 'as' => 'products.
     Route::any('/search', 'ProductController@search')->name('search');
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => 'estoque', 'as' => 'stock.'], function() {
+    Route::get('/entrada', 'ProductStockController@stockEntry')->name('entry');
+    Route::get('/saida', 'ProductStockController@stockOutput')->name('output');
+    Route::post('/criar', 'ProductStockController@store')->name('store');
+    Route::get('/{id}/produto', 'ProductStockController@show')->name('show');
+    Route::get('/{id}/editar', 'ProductStockController@edit')->name('edit');
+    Route::post('/{id}/editar', 'ProductStockController@update')->name('update');
+    Route::delete('/{id}/excluir', 'ProductStockController@destroy')->name('destroy');
+    Route::any('/search', 'ProductStockController@search')->name('search');
+});
+
 Route::get('configuracoes', 'ConfigurationController@index')->name('configurations.index');
 
 Route::resource('/customers', 'CustomerController')->middleware('auth');
