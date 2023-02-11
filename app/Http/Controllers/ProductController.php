@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * @var Product
-     */
 
     const ROUTE = 'products.index';
     /**

@@ -23,8 +23,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'produtos', 'as' => 'products.
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'estoque', 'as' => 'stock.'], function() {
-    Route::get('/entrada', 'ProductStockController@stockEntry')->name('entry');
-    Route::get('/saida', 'ProductStockController@stockOutput')->name('output');
+    Route::get('/entrada/{id}', 'ProductStockController@stockEntry')->name('entry');
+    Route::get('/saida/{id}', 'ProductStockController@stockOutput')->name('output');
     Route::post('/criar', 'ProductStockController@store')->name('store');
     Route::get('/{id}/produto', 'ProductStockController@show')->name('show');
     Route::get('/{id}/editar', 'ProductStockController@edit')->name('edit');
