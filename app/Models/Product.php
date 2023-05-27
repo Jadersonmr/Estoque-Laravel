@@ -26,4 +26,9 @@ class Product extends Model
             }
         })->paginate(20);
     }
+
+    public function stock(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ProductStock::class);
+    }
 }

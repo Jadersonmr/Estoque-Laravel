@@ -9,7 +9,7 @@
                 Adicionar entrada de produto
             @endslot
 
-            {!! Form::open(['url' => route('products.store'), 'method' => 'post', 'files' => true]) !!}
+            {!! Form::open(['url' => route('stock.store'), 'method' => 'post', 'files' => true]) !!}
                 <div class="mb-2">
                     <a href="{{route('products.index')}}" class="btn btn-primary">Voltar</a>
                     {!! Form::submit("Adicionar", ["class" => "btn btn-primary"]); !!}
@@ -25,6 +25,7 @@
                         </div>
                     @endif
                 </div>
+                <input type="hidden" name="product_id" value="{{$productId}}">
             {!! Form::close() !!}
         @endcomponent
     </div>

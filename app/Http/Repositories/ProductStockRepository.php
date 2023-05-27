@@ -3,21 +3,22 @@
 namespace App\Http\Repositories;
 
 use App\Models\Product;
+use App\Models\ProductStock;
 
 class ProductStockRepository
 {
     /**
-     * @var Product
+     * @var ProductStock
      */
-    private $product;
+    private $productStock;
 
-    public function __construct(Product $product)
+    public function __construct(ProductStock $productStock)
     {
-        $this->product = $product;
+        $this->productStock = $productStock;
     }
 
-    public function create($data)
+    public function create($data): ProductStock
     {
-        return $this->product->create($data);
+        return $this->productStock->create($data);
     }
 }

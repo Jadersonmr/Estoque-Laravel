@@ -9,6 +9,8 @@ class ProductStock extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'consolidations';
+
     /**
      * The attributes that are mass assignable.
      *
