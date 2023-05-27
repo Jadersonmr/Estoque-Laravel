@@ -15,7 +15,6 @@
                     @endif
 
                     <a class="btn btn-primary" href="{{route('products.index')}}">Produtos</a>
-                    <a class="btn btn-primary" href="{{route('configurations.index')}}">Configurações</a>
                 </div>
             </div>
         </div>

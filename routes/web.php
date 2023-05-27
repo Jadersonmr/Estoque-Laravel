@@ -33,8 +33,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'estoque', 'as' => 'stock.'], 
     Route::any('/search', 'ProductStockController@search')->name('search');
 });
 
-Route::get('configuracoes', 'ConfigurationController@index')->name('configurations.index');
-
 Route::resource('/customers', 'CustomerController')->middleware('auth');
 
 //Route::get('/categorias/{flag}', function ($flag) {
