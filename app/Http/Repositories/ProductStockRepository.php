@@ -2,7 +2,6 @@
 
 namespace App\Http\Repositories;
 
-use App\Models\Product;
 use App\Models\ProductStock;
 
 class ProductStockRepository
@@ -17,7 +16,7 @@ class ProductStockRepository
         $this->productStock = $productStock;
     }
 
-    public function create($data): ProductStock
+    public function create(array $data): ProductStock
     {
         return $this->productStock->create($data);
     }

@@ -11,7 +11,7 @@ class UpdateProductRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,10 +21,8 @@ class UpdateProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-//        $id = $this->segment(2);
-
         return [
             'name' => "required|min:3|max:255|unique:products,name,{$this->id},id",
             'description' => 'required|min:3|max:10000',
@@ -32,7 +30,7 @@ class UpdateProductRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'O campo nome é obrigatório',

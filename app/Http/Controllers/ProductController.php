@@ -16,6 +16,7 @@ class ProductController extends Controller
 {
 
     const ROUTE = 'products.index';
+    const PAGINATE = 20;
     /**
      * @var ProductRepository
      */
@@ -31,9 +32,9 @@ class ProductController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View
     {
-        $products = $this->productRepository->paginate(20);
+        $products = $this->productRepository->paginate(self::PAGINATE);
 
         return view(self::ROUTE, ['products' => $products]);
     }
@@ -43,7 +44,7 @@ class ProductController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View
     {
         return view('products.create');
     }
@@ -75,7 +76,7 @@ class ProductController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function show(int $id)
+    public function show(int $id): View
     {
         $productData = $this->productRepository->find($id);
 
@@ -88,7 +89,7 @@ class ProductController extends Controller
      * @param  int $id
      * @return Application|Factory|View
      */
-    public function edit(int $id)
+    public function edit(int $id): View
     {
         $productData = $this->productRepository->find($id);
 

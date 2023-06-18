@@ -30,4 +30,9 @@ class ProductStockController extends Controller
 
         return redirect()->route(self::ROUTE);
     }
+
+    public function stockOutput($productId)
+    {
+        return view('products-stock.output')->with(['productId' => $productId]);
+    }
 }

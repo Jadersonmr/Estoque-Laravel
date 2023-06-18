@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class Product extends Model
 {
@@ -18,7 +21,11 @@ class Product extends Model
         'name', 'description', 'price', 'image'
     ];
 
-    public function search($filter = null)
+    /**
+     * @param string|null $filter
+     * @return LengthAwarePaginator
+     */
+    public function search(string $filter = null): LengthAwarePaginator
     {
         return $this->where(function ($query) use($filter) {
             if ($filter) {
@@ -27,7 +34,10 @@ class Product extends Model
         })->paginate(20);
     }
 
-    public function stock(): \Illuminate\Database\Eloquent\Relations\HasOne
+    /**
+     * @return HasOne
+     */
+    public function stock(): HasOne
     {
         return $this->hasOne(ProductStock::class);
     }

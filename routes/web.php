@@ -35,18 +35,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'estoque', 'as' => 'stock.'], 
 
 Route::resource('/customers', 'CustomerController')->middleware('auth');
 
-//Route::get('/categorias/{flag}', function ($flag) {
-//   return "Produtos da categoria: {$flag}";
-//});
-
-//Route::match(['post', 'get'], '/match', function () {
-//   return 'match';
-//});
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
