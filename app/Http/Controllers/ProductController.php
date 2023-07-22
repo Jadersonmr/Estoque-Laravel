@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Repositories\ProductRepository;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -55,13 +56,12 @@ class ProductController extends Controller
      * @param StoreProductRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): RedirectResponse
     {
         $data = $request->all();
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             $imagePath = $request->image->store('products');
-
             $data['image'] = $imagePath;
         }
 
@@ -132,6 +132,7 @@ class ProductController extends Controller
      *
      * @param int $id
      * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(int $id)
     {

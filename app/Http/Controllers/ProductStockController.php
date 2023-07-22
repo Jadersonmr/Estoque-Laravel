@@ -2,37 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repositories\ProductStockRepository;
-use Illuminate\Http\Request;
+use App\Http\Repositories\ProductConsolidationRepository;
+use App\Http\Repositories\ProductMovimentationRepository;
+use App\Http\Requests\StoreStockRequest;
+use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ProductStockController extends Controller
 {
-    const ROUTE = 'products.index';
+    /**
+     * @var ProductMovimentationRepository
+     */
+    private $productMovimentationRepository;
+    /**
+     * @var ProductConsolidationRepository
+     */
+    private $productConsolidationRepository;
+
+    public function __construct(ProductMovimentationRepository $productMovimentationRepository,
+                                ProductConsolidationRepository $productConsolidationRepository)
+    {
+        $this->productMovimentationRepository = $productMovimentationRepository;
+        $this->productConsolidationRepository = $productConsolidationRepository;
+    }
 
     /**
-     * @var ProductStockRepository
+     * @param $productId
+     * @return Application|Factory|View
      */
-    private $productStockRepository;
-
-    public function __construct(ProductStockRepository $productStockRepository)
+    public function create($productId)
     {
-        $this->productStockRepository = $productStockRepository;
+        return view('products-stock-entry.create')->with(['productId' => $productId]);
     }
 
-    public function stockEntry($productId)
-    {
-        return view('products-stock.entry')->with(['productId' => $productId]);
-    }
-
-    public function store(Request $request)
-    {
-        $this->productStockRepository->create($request->all());
-
-        return redirect()->route(self::ROUTE);
-    }
-
+    /**
+     * @param $productId
+     * @return Application|Factory|View
+     */
     public function stockOutput($productId)
     {
-        return view('products-stock.output')->with(['productId' => $productId]);
+        return view('products-stock-output.create')->with(['productId' => $productId]);
+    }
+
+    /**
+     * @param StoreStockRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreStockRequest $request)
+    {
+        $input = $request->all();
+        $input['consolidation_id'] = $this->productConsolidationRepository->updateOrCreate(['quantity' => $input['quantity'], 'product_id' => $input['product_id']])->id;
+
+        $this->productMovimentationRepository->create($input);
+
+        return redirect()->route('products.index');
     }
 }

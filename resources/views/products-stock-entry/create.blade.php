@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Adicionar saída - ')
+@section('title', 'Adicionar entrada - ')
 
 @section('content')
     <div class="container">
         @component('products.components.card')
             @slot('title')
-                Adicionar saída de produto
+                Adicionar entrada de produto
             @endslot
 
             {!! Form::open(['url' => route('stock.store'), 'method' => 'post', 'files' => true]) !!}
                 <div class="mb-2">
                     <a href="{{route('products.index')}}" class="btn btn-primary">Voltar</a>
-                    {!! Form::submit("Confirmar", ["class" => "btn btn-primary"]); !!}
+                    {!! Form::submit("Adicionar", ["class" => "btn btn-primary"]); !!}
                 </div>
                 <div class="row">
                     <div class="col-5">
@@ -26,6 +26,8 @@
                     @endif
                 </div>
                 <input type="hidden" name="product_id" value="{{$productId}}">
+                <input type="hidden" name="type" value="1">
+                <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
             {!! Form::close() !!}
         @endcomponent
     </div>

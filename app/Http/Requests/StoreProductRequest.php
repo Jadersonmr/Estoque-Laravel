@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255|unique:products',
             'description' => 'required|min:3|max:10000',
-            'image' => 'image'
+            'image' => 'image|mimes:jpeg,png|max:1024'
         ];
     }
 
@@ -40,4 +40,8 @@ class StoreProductRequest extends FormRequest
             'description.min' => 'O campo descrição precisa ter pelo menos 3 caracteres'
         ];
     }
+
+    public $attributes = [
+        'image' => 'Imagem'
+    ];
 }

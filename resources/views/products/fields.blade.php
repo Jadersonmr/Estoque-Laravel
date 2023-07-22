@@ -38,3 +38,8 @@
     <label for="image">Imagem</label>
     {!! Form::file('image', ["class" => "form-control"]); !!}
 </div>
+@if($errors->has('image'))
+    <div class="alert alert-danger" role="alert">
+        {{$errors->first('image')}}
+    </div>
+@endif

@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => "required|min:3|max:255|unique:products,name,{$this->id},id",
             'description' => 'required|min:3|max:10000',
-            'image' => 'image'
+            'image' => 'image|mimes:jpeg,png|max:1024'
         ];
     }
 
@@ -40,4 +40,8 @@ class UpdateProductRequest extends FormRequest
             'description.min' => 'O campo descrição precisa ter pelo menos 3 caracteres'
         ];
     }
+
+    public $attributes = [
+        'image' => 'Imagem'
+    ];
 }

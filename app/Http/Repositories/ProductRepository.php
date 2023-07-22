@@ -18,7 +18,11 @@ class ProductRepository
         return $this->model->orderBy('created_at', 'DESC')->paginate($pages);
     }
 
-    public function create($data)
+    /**
+     * @param array $data
+     * @return Product
+     */
+    public function create(array $data): Product
     {
         return $this->model->create($data);
     }

@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 
 class Product extends Model
 {
@@ -37,8 +37,16 @@ class Product extends Model
     /**
      * @return HasOne
      */
-    public function stock(): HasOne
+    public function movimentation(): HasOne
     {
-        return $this->hasOne(ProductStock::class);
+        return $this->hasOne(Movimentation::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function consolidation(): BelongsTo
+    {
+        return $this->belongsTo(Consolidation::class);
     }
 }

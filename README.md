@@ -79,7 +79,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Executar o projeto:
 docker-compose up -d
-docker-compose run artisan serve
 
 ## Acessar o projeto
 http://172.17.0.1:7000/

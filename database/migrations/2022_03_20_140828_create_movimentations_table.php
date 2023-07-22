@@ -16,7 +16,7 @@ class CreateMovimentationsTable extends Migration
         Schema::create('movimentations', function (Blueprint $table) {
             $table->integer('id', true);
             $table->integer('quantity');
-            $table->tinyInteger('type')->comment('0 -> Entrada, 1 -> Saída');
+            $table->tinyInteger('type')->comment('1 -> Entrada, 0 -> Saída');
             $table->integer('product_id');
             $table->foreign('product_id')->on('products')->references('id');
             $table->unsignedBigInteger('user_id');

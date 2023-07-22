@@ -26,7 +26,7 @@
             <td>{{$product->description ?? null}}</td>
             <td class="text-center">{{$product->stock->quantity ?? 0}}</td>
             <td>
-                <a class="btn btn-primary" href="{{route('stock.entry', $product->id)}}">+</a>
+                <a class="btn btn-primary" href="{{route('stock.create', $product->id)}}">+</a>
             </td>
             <td>
                 <a class="btn btn-primary" href="{{route('stock.output', $product->id)}}">-</a>
