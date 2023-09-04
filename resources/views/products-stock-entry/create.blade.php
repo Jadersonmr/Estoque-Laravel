@@ -20,7 +20,7 @@
                         {!! Form::number('quantity', null , ["class" => "form-control", "placeholder" => "Quantidade:"]) !!}
                     </div>
                     @if($errors->has('quantity'))
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger mt-4" role="alert">
                             {{$errors->first('quantity')}}
                         </div>
                     @endif

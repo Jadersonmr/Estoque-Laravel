@@ -38,10 +38,10 @@
                 <a class="btn btn-primary" href="{{route('products.edit', $product->id)}}">Editar</a>
             </td>
             <td>
-                <form action="{{route('products.destroy', $product->id)}}" method="post">
+                <form id="form-product-{{$product->id}}" action="{{route('products.destroy', $product->id)}}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-primary">Excluir</button>
+                    <button type="button" data-delete-product="{{$product->id}}" class="btn btn-primary deleteProduct" data-toggle="modal" data-target="#deleteModal">Excluir</button>
                 </form>
             </td>
         </tr>

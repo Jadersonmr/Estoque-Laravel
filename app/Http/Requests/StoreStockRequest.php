@@ -27,4 +27,11 @@ class StoreStockRequest extends FormRequest
             'quantity' => 'required|gte:1|lt:1000'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'quantity.required' => 'O campo quantidade é obrigatório.'
+        ];
+    }
 }
