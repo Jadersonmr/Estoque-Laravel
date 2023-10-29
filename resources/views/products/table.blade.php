@@ -18,7 +18,8 @@
         <tr>
             <td>
                 @if($product->image)
-                    <img src="{{url("storage/{$product->image}")}}" alt="{{$product->name}}" style="max-width: 50px; max-height: 50px;">
+                    <img src="{{url("storage/" . $product->image) ?? '/home/jaderson/Downloads/default.jpg'}}"
+                         alt="{{$product->name}}" class="img-thumbnail">
                 @endif
             </td>
             <td>{{$product->name ?? null}}</td>

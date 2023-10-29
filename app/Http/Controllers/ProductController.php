@@ -56,13 +56,12 @@ class ProductController extends Controller
      * @param StoreProductRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreProductRequest $request): RedirectResponse
+    public function store(StoreProductRequest $request)
     {
         $data = $request->all();
 
         if ($request->hasFile('image') && $request->image->isValid()) {
-            $imagePath = $request->image->store('products');
-            $data['image'] = $imagePath;
+            $data['image'] = $request->image->store('products');
         }
 
         $this->productRepository->create($data);

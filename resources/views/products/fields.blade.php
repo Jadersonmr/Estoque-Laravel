@@ -26,13 +26,21 @@
 
 <div class="mb-3">
     <label for="description" class="form-label">Descrição</label>
-    {!! Form::textarea('description', $product->description ?? null , ["class" => "form-control", "placeholder" => "Descrição:"]) !!}
+    {!! Form::textarea('description', $product->description ?? null , [
+                        "class" => "form-control",
+                        "placeholder" => "Descrição:"]) !!}
 </div>
 @if($errors->has('description'))
     <div class="alert alert-danger" role="alert">
         {{$errors->first('description')}}
     </div>
 @endif
+
+@isset($product->image)
+<div class="mb-3">
+    <img src="{{url("storage/" . $product->image)}}" alt="{{$product->name}}" class="img-fluid">
+</div>
+@endisset
 
 <div class="mb-3">
     <label for="image">Imagem</label>
