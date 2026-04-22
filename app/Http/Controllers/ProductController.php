@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use App\Http\Services\NumberService;
 
 class ProductController extends Controller
 {
@@ -59,6 +60,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->all();
+        $data['price'] = NumberService::saveCurrency($data['price']);
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             $data['image'] = $request->image->store('products');
@@ -111,6 +113,7 @@ class ProductController extends Controller
         }
 
         $data = $request->all();
+        $data['price'] = NumberService::saveCurrency($data['price']);
 
         if ($request->hasFile('image') && $request->image->isValid()) {
             if ($productData->image && Storage::exists($productData->image)){

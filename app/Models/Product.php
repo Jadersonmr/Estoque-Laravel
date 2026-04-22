@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Services\NumberService;
 
 class Product extends Model
 {
@@ -48,5 +49,18 @@ class Product extends Model
     public function consolidation(): BelongsTo
     {
         return $this->belongsTo(Consolidation::class);
+    }
+
+    public function getPriceFormattedAttribute(): string
+    {
+        return NumberService::showCurrency($this->price);
+    }
+
+    public function getTotalQuantityAttribute()
+    {
+        $totalEntries = $this->movimentation()->where('type', 1)->sum('quantity');
+        $totalExits = $this->movimentation()->where('type', 0)->sum('quantity');
+
+        return $totalEntries - $totalExits;
     }
 }

@@ -23,9 +23,9 @@
                 @endif
             </td>
             <td>{{$product->name ?? null}}</td>
-            <td>{{$product->price ?? null}}</td>
+            <td>{{$product->price_formatted ?? null}}</td>
             <td>{{$product->description ?? null}}</td>
-            <td class="text-center">{{$product->stock->quantity ?? 0}}</td>
+            <td class="text-center">{{$product->total_quantity ?? 0}}</td>
             <td>
                 <a class="btn btn-primary" href="{{route('stock.create', $product->id)}}">+</a>
             </td>

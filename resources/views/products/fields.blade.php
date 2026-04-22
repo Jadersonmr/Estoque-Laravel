@@ -16,7 +16,7 @@
 
 <div class="mb-3">
     <label for="price" class="form-label">Preço</label>
-    {!! Form::number('price', $product->price ?? null , ["class" => "form-control", "placeholder" => "Preço:"]) !!}
+    {!! Form::text('price', $product->price_formatted ?? null, ["class" => "form-control", "placeholder" => "Preço:"]) !!}
 </div>
 @if($errors->has('price'))
     <div class="alert alert-danger" role="alert">
